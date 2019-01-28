@@ -24,11 +24,12 @@ type MultipleRequest struct {
 // Service Описание запроса и доступа к сервису
 type Service struct {
 	Auth
-	ID      string        `xml:"id,attr"`                 // Тип запроса к сервису
-	Source  string        `xml:"source,attr"`             // Имя отправителя сообщения
-	Testing uint8         `xml:"test,attr,omitempty"`     // Флаг тестирования
-	StartAt *TimeRfc1123z `xml:"start,attr,omitempty"`    // Дата и время отправки сообщения сервисом
-	UniqKey uint64        `xml:"uniq_key,attr,omitempty"` // Уникальный идентификатор сообщения или пользовательский номер пакета
+	ID       string        `xml:"id,attr"`                 // Тип запроса к сервису
+	Source   string        `xml:"source,attr"`             // Имя отправителя сообщения
+	Testing  uint8         `xml:"test,attr,omitempty"`     // Флаг тестирования
+	Extended uint8         `xml:"extended,attr,omitempty"` // Флаг расширенного статуса
+	StartAt  *TimeRfc1123z `xml:"start,attr,omitempty"`    // Дата и время отправки сообщения сервисом
+	UniqKey  uint64        `xml:"uniq_key,attr,omitempty"` // Уникальный идентификатор сообщения или пользовательский номер пакета
 }
 
 // To Описание получателя

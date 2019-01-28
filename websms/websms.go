@@ -50,6 +50,9 @@ func DefaultPassword(password string) { defaultConfiguration.Password = password
 // Testing Set testing flag
 func (wsm *impl) Testing(t bool) Interface { wsm.test = t; return wsm }
 
+// Extended Выполнение запроса отправки с получением расширенной информации статуса
+func (wsm *impl) Extended(t bool) Interface { wsm.extd = t; return wsm }
+
 // From is an sender name, if not specified selects from service profile settings
 func (wsm *impl) From(from string) Interface { wsm.from = from; return wsm }
 

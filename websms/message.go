@@ -24,9 +24,12 @@ func (wsm *impl) messageToAnyAt(msg *Message, pkgID uint64, start time.Time, to 
 		},
 		Body: msg.Body,
 	}
-	// Флаг тестирования
+	// Флаги
 	if wsm.test {
 		obj.Service.Testing = 1
+	}
+	if wsm.extd {
+		obj.Service.Extended = 1
 	}
 	// Авторизация
 	obj.Service.Username, obj.Service.Password = wsm.cfg.Username, wsm.cfg.Password
@@ -47,8 +50,7 @@ func (wsm *impl) messageToAnyAt(msg *Message, pkgID uint64, start time.Time, to 
 		obj.To = append(obj.To, toj)
 	}
 	// Выполнение запроса отправки и получение результата запроса
-	status = new(Status)
-	*status, err = wsm.SendRequest(obj)
+	status, err = wsm.SendRequest(obj)
 
 	return
 }
@@ -71,9 +73,12 @@ func (wsm *impl) messagesToAnyAt(msgs []*MultiMessage, pkgID uint64, start time.
 			UniqKey: pkgID,
 		},
 	}
-	// Флаг тестирования
+	// Флаги
 	if wsm.test {
 		obj.Service.Testing = 1
+	}
+	if wsm.extd {
+		obj.Service.Extended = 1
 	}
 	// Авторизация
 	obj.Service.Username, obj.Service.Password = wsm.cfg.Username, wsm.cfg.Password
@@ -99,8 +104,7 @@ func (wsm *impl) messagesToAnyAt(msgs []*MultiMessage, pkgID uint64, start time.
 		obj.ToBody = append(obj.ToBody, tbi)
 	}
 	// Выполнение запроса отправки и получение результата запроса
-	status = new(Status)
-	*status, err = wsm.SendRequest(obj)
+	status, err = wsm.SendRequest(obj)
 
 	return
 }

@@ -19,6 +19,10 @@ const (
 	defaultRequestPoolSize               = uint16(64)             // Размер пула воркеров готовых для выполнения запросов к хостам
 )
 
+const (
+	apiXmlUri = `http://cab.websms.ru/xml_in5.asp` // API URI
+)
+
 var defaultConfiguration *websmsTypes.DefaultConfiguration
 var singletonTransport transport.Interface
 
@@ -29,6 +33,12 @@ type Interface interface {
 
 	// Testing Set testing flag
 	Testing(t bool) Interface
+
+	// Extended Выполнение запроса отправки с получением расширенной информации статуса
+	Extended(t bool) Interface
+
+	// Balance Request account balance
+	Balance() (ret float64, err error)
 
 	// Message Send a single message at now to one address
 	Message(msg *Message, to string) (status *Status, err error)
@@ -47,12 +57,19 @@ type Interface interface {
 
 	// MessagesAt Send a multiple message as a one packet at the specified time to one address
 	MessagesAt(msgs []*MultiMessage, pkgID uint64, start time.Time) (status *Status, err error)
+
+	// StatusByMessageID Request status of dispatch by message ID
+	StatusByMessageID(id uint64) (status *Status, err error)
+
+	// StatusByGroupID Request status of dispatch by group ID
+	StatusByGroupID(id uint64) (status *Status, err error)
 }
 
 // is an implementation
 type impl struct {
 	cfg  *Configuration // Конфигурация
 	test bool           // =true - выполнение запроса к сервису с флагом test
+	extd bool           // =true - выполнение запроса отправки и проверки статуса с получением расширенной информации статуса
 	from string         // Имя отправителя, если не указано, то выбирается в личном кабинете сервиса
 }
 
@@ -76,7 +93,25 @@ type MultiMessage struct {
 }
 
 // Status Статус запроса
-type Status *websmsTypes.Status
+type Status struct {
+	ID             uint64    // Уникальный идентификатор сообщения
+	GroupID        uint64    // Номер пакета группы сообщений переданный при отправке сообщения
+	StateAt        time.Time // Дата и время для которого был возвращён статус
+	State          []*State  // Состояние
+	RegistrationAt time.Time // +extend Дата и время получения СМС-сообщения сервисом
+	SendAt         time.Time // +extend Дата и время отправки СМС-сообщения сервисом
+	DeliveredAt    time.Time // +extend Дата и время доставки СМС-сообщения
+	MessageParts   uint8     // +extend Количество частей сообщения
+	MessageCost    float64   // +extend Стоимость сообщения в книвом формате
+	Balance        float64   // +extend Баланс аккаунта в кривом формате
+}
 
 // State Состояние статуса запроса
-type State *websmsTypes.State
+type State struct {
+	ID          uint64         // Уникальный идентификатор сообщения в системе websms.ru
+	UniqKey     uint64         // Уникальный идентификатор сообщения переданный при отправке сообщения
+	ErrorString string         // Сообщение об ошибки
+	ErrorCode   uint16         // Код ошибки
+	Error       ErrCode        // Ошибка в строгом формате
+	Value       DispatchStatus // Статус сообщения
+}
