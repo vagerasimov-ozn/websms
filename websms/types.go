@@ -20,7 +20,7 @@ const (
 )
 
 const (
-	apiXmlUri = `http://cab.websms.ru/xml_in5.asp` // API URI
+	apiXMLURI = `http://cab.websms.ru/xml_in5.asp` // API URI
 )
 
 var defaultConfiguration *websmsTypes.DefaultConfiguration

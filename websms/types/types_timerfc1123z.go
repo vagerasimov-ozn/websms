@@ -25,11 +25,11 @@ func (trz TimeRfc1123z) MarshalXML(e *xml.Encoder, start xml.StartElement) error
 
 // MarshalXMLAttr Implementation of xml.MarshalerAttr interface
 func (trz TimeRfc1123z) MarshalXMLAttr(name xml.Name) (attr xml.Attr, err error) {
-	attr = xml.Attr{name, time.Time(trz).Format(time.RFC1123Z)}
+	attr = xml.Attr{Name: name, Value: time.Time(trz).Format(time.RFC1123Z)}
 	return
 }
 
-// Implementation of xml.Unmarshaler interface
+// UnmarshalXML Implementation of xml.Unmarshaler interface
 func (trz *TimeRfc1123z) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err error) {
 	var t time.Time
 	var s string
@@ -45,7 +45,7 @@ func (trz *TimeRfc1123z) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (e
 	return
 }
 
-// Implementation of xml.UnmarshalerAttr interface
+// UnmarshalXMLAttr Implementation of xml.UnmarshalerAttr interface
 func (trz *TimeRfc1123z) UnmarshalXMLAttr(attr xml.Attr) (err error) {
 	var parse time.Time
 

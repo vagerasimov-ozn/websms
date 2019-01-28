@@ -27,11 +27,11 @@ func (tso TimeWebsmsShortOne) MarshalXML(e *xml.Encoder, start xml.StartElement)
 
 // MarshalXMLAttr Implementation of xml.MarshalerAttr interface
 func (tso TimeWebsmsShortOne) MarshalXMLAttr(name xml.Name) (attr xml.Attr, err error) {
-	attr = xml.Attr{name, time.Time(tso).Format(timeWebsmsShortOneFormat)}
+	attr = xml.Attr{Name: name, Value: time.Time(tso).Format(timeWebsmsShortOneFormat)}
 	return
 }
 
-// Implementation of xml.Unmarshaler interface
+// UnmarshalXML Implementation of xml.Unmarshaler interface
 func (tso *TimeWebsmsShortOne) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err error) {
 	var t time.Time
 	var s string
@@ -47,7 +47,7 @@ func (tso *TimeWebsmsShortOne) UnmarshalXML(d *xml.Decoder, start xml.StartEleme
 	return
 }
 
-// Implementation of xml.UnmarshalerAttr interface
+// UnmarshalXMLAttr Implementation of xml.UnmarshalerAttr interface
 func (tso *TimeWebsmsShortOne) UnmarshalXMLAttr(attr xml.Attr) (err error) {
 	var parse time.Time
 

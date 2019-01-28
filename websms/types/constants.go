@@ -5,7 +5,7 @@ package types // import "gopkg.in/webnice/websms.v1/websms/types"
 //import ()
 
 const (
-	// SingleService Отправка одиночного SMS сообщения
+	// ServiceSingle Отправка одиночного SMS сообщения
 	ServiceSingle = ServiceType(`single`)
 
 	// ServiceBulk Отправка одного текста на несколько номеров

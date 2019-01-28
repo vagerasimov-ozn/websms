@@ -100,7 +100,7 @@ func (wsm *impl) SendRequest(obj interface{}) (status *Status, err error) {
 		Method(singletonTransport.Method().Post()).
 		ContentType(mime.ApplicationXMLCharsetUTF8).
 		DataXML(obj).
-		URL(apiXmlUri)
+		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
 	// Ожидание ответа
@@ -144,7 +144,7 @@ func (wsm *impl) Balance() (ret float64, err error) {
 		Method(singletonTransport.Method().Post()).
 		ContentType(mime.ApplicationXMLCharsetUTF8).
 		DataXML(obj).
-		URL(apiXmlUri)
+		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
 	// Ожидание ответа
@@ -198,7 +198,7 @@ func (wsm *impl) StatusByMessageID(id uint64) (status *Status, err error) {
 		Method(singletonTransport.Method().Post()).
 		ContentType(mime.ApplicationXMLCharsetUTF8).
 		DataXML(obj).
-		URL(apiXmlUri)
+		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
 	// Ожидание ответа
@@ -225,5 +225,5 @@ func (wsm *impl) StatusByMessageID(id uint64) (status *Status, err error) {
 
 // StatusByGroupID Request status of dispatch by group ID
 func (wsm *impl) StatusByGroupID(id uint64) (status *Status, err error) {
-	return nil, errors.New(`Not implemented, sorry. Contribute please!`)
+	return nil, errors.New(`not implemented, sorry, contribute please`)
 }
