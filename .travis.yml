@@ -9,7 +9,7 @@ install:
 
 script:
   - make test
-  - GOPATH=`pwd` $HOME/gopath/bin/goveralls -coverprofile=coverage.log -service=travis-ci -repotoken $COVERALLS_TOKEN
+  - GOPATH=`pwd` GO111MODULE="off" $HOME/gopath/bin/goveralls -coverprofile=coverage.log -service=travis-ci -repotoken $COVERALLS_TOKEN
 
 go:
   - "1.8.x"
