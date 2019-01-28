@@ -16,7 +16,7 @@ func (wsm *impl) messageToAnyAt(msg *Message, pkgID uint64, start time.Time, to 
 	var toj *websmsTypes.To
 	var j int
 
-	tnw = websmsTypes.TimeRfc1123z(time.Now())
+	tnw = websmsTypes.TimeRfc1123z(start)
 	obj = &websmsTypes.SingleRequest{
 		Service: &websmsTypes.Service{
 			ID:      websmsTypes.ServiceSingle.String(),
@@ -66,7 +66,7 @@ func (wsm *impl) messagesToAnyAt(msgs []*MultiMessage, pkgID uint64, start time.
 	var tbi *websmsTypes.ToBody
 	var i int
 
-	tnw = websmsTypes.TimeRfc1123z(time.Now())
+	tnw = websmsTypes.TimeRfc1123z(start)
 	obj = &websmsTypes.MultipleRequest{
 		Service: &websmsTypes.Service{
 			ID:      websmsTypes.ServiceIndividual.String(),

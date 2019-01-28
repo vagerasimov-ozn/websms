@@ -5,6 +5,7 @@ install:
   - go get gopkg.in/webnice/debug.v1
   - go get gopkg.in/webnice/log.v2
   - go get gopkg.in/webnice/transport.v2
+  - go get gopkg.in/webnice/websms.v1/websms
 
 script:
   - make test
