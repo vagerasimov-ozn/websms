@@ -1,5 +1,7 @@
 golang.org/x/text v0.3.0 h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
+gopkg.in/webnice/log.v2 v2.0.0-20180614164658-0d0f83550387 h1:URVgyGDsgoxk3FlWQKgQXSKFn5bPvCp1SK7HWZ5MRpg=
+gopkg.in/webnice/log.v2 v2.0.0-20180614164658-0d0f83550387/go.mod h1:TI0RVz7HToFw3AOoOYKnLiwbpvDMbvZCpxVzUXmVst0=
 gopkg.in/webnice/transport.v2 v2.0.0-20181030225740-7a4e09171b08 h1:gpAv1EtZ1YQGrtVNbbYVku9Zv2j3DLLlJJMhjK047uo=
 gopkg.in/webnice/transport.v2 v2.0.0-20181030225740-7a4e09171b08/go.mod h1:gZGUGsSh6yGesNONZ47C069DNIp6TV4CzxweXcUE7kY=
 gopkg.in/webnice/web.v1 v1.0.0-20181114142920-70417507a480 h1:RSBmwmkWkbES3hyB86+7ZeuyH1OLzp4cyOCuSDy0518=

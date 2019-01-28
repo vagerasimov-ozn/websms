@@ -4,6 +4,25 @@ golang.org/x/text/encoding/charmap
 golang.org/x/text/transform
 golang.org/x/text/encoding/internal/identifier
 golang.org/x/text/encoding/internal
+# gopkg.in/webnice/log.v2 v2.0.0-20180614164658-0d0f83550387
+gopkg.in/webnice/log.v2
+gopkg.in/webnice/log.v2/level
+gopkg.in/webnice/log.v2/message
+gopkg.in/webnice/log.v2/receiver
+gopkg.in/webnice/log.v2/sender
+gopkg.in/webnice/log.v2/writer
+gopkg.in/webnice/log.v2/trace
+gopkg.in/webnice/log.v2/uuid
+gopkg.in/webnice/log.v2/receiver/fsfile
+gopkg.in/webnice/log.v2/receiver/fsfilerotation
+gopkg.in/webnice/log.v2/receiver/gelf
+gopkg.in/webnice/log.v2/receiver/stderr
+gopkg.in/webnice/log.v2/receiver/stdout
+gopkg.in/webnice/log.v2/receiver/syslog
+gopkg.in/webnice/log.v2/middleware
+gopkg.in/webnice/log.v2/middleware/fswformattext
+gopkg.in/webnice/log.v2/formater
+gopkg.in/webnice/log.v2/gelf
 # gopkg.in/webnice/transport.v2 v2.0.0-20181030225740-7a4e09171b08
 gopkg.in/webnice/transport.v2
 gopkg.in/webnice/transport.v2/request
@@ -16,3 +35,4 @@ gopkg.in/webnice/transport.v2/data
 # gopkg.in/webnice/web.v1 v1.0.0-20181114142920-70417507a480
 gopkg.in/webnice/web.v1/mime
 gopkg.in/webnice/web.v1/header
+gopkg.in/webnice/web.v1/status
