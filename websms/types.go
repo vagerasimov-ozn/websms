@@ -20,11 +20,12 @@ const (
 )
 
 const (
-	apiXMLURI = `http://cab.websms.ru/xml_in5.asp` // API URI
+	websmsruXMLURI = `http://cab.websms.ru/xml_in5.asp` // API URI
 )
 
 var defaultConfiguration *websmsTypes.DefaultConfiguration
 var singletonTransport transport.Interface
+var apiXMLURI = websmsruXMLURI
 
 // Interface is an interface of object
 type Interface interface {
