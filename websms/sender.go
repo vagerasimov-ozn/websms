@@ -86,7 +86,7 @@ func (wsm *impl) statusConvertor(s *websmsTypes.Status) (status *Status, err err
 // SendRequest Выполнение запроса отправки и получение результата запроса
 func (wsm *impl) SendRequest(obj interface{}) (status *Status, err error) {
 	var req request.Interface
-	var s *websmsTypes.Status
+	var rsp *websmsTypes.Status
 
 	switch obj.(type) {
 	case *websmsTypes.SingleRequest, *websmsTypes.MultipleRequest:
@@ -103,6 +103,19 @@ func (wsm *impl) SendRequest(obj interface{}) (status *Status, err error) {
 		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
+	// Результат
+	rsp = new(websmsTypes.Status)
+	if err = wsm.SendResponse(req, rsp); err != nil {
+		return
+	}
+	// Конвертирование статуса во вменяемый формат
+	status, err = wsm.statusConvertor(rsp)
+
+	return
+}
+
+// SendResponse Обработка результата
+func (wsm *impl) SendResponse(req request.Interface, rsp interface{}) (err error) {
 	// Ожидание ответа
 	if err = req.Done().Error(); err != nil {
 		err = fmt.Errorf("Execute request error: %s", err)
@@ -113,10 +126,9 @@ func (wsm *impl) SendRequest(obj interface{}) (status *Status, err error) {
 		err = fmt.Errorf("Request %s %q error, HTTP code %d (%s)", req.Response().Response().Request.Method, req.Response().Response().Request.URL.String(), req.Response().StatusCode(), req.Response().Status())
 		return
 	}
-	s = new(websmsTypes.Status)
-	err = req.Response().Content().UnmarshalXML(s)
-	// Конвертирование статуса во вменяемый формат
-	status, err = wsm.statusConvertor(s)
+	err = req.Response().
+		Content().
+		UnmarshalXML(rsp)
 	// DEBUG
 	//req.Response().Content().BackToBegin()
 	//log.Debug(req.Response().Content().String())
@@ -147,23 +159,12 @@ func (wsm *impl) Balance() (ret float64, err error) {
 		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
-	// Ожидание ответа
-	if err = req.Done().Error(); err != nil {
-		err = fmt.Errorf("Execute request error: %s", err)
-		return
-	}
-	// Анализ результата
-	if req.Response().StatusCode() < 200 || req.Response().StatusCode() > 299 {
-		err = fmt.Errorf("Request %s %q error, HTTP code %d (%s)", req.Response().Response().Request.Method, req.Response().Response().Request.URL.String(), req.Response().StatusCode(), req.Response().Status())
-		return
-	}
+	// Результат
 	rsp = new(websmsTypes.BalanceResponse)
-	err = req.Response().
-		Content().
-		UnmarshalXML(rsp)
-	if err != nil {
+	if err = wsm.SendResponse(req, rsp); err != nil {
 		return
 	}
+	// Обработка результата
 	ret, err = strconv.ParseFloat(strings.Replace(rsp.Value, ",", ".", -1), 64)
 	if err != nil {
 		err = fmt.Errorf(rsp.Value)
@@ -177,7 +178,7 @@ func (wsm *impl) StatusByMessageID(id uint64) (status *Status, err error) {
 	const keyStatus = `status`
 	var obj *websmsTypes.RequestStatus
 	var req request.Interface
-	var s *websmsTypes.Status
+	var rsp *websmsTypes.Status
 
 	// Авторизация
 	obj = &websmsTypes.RequestStatus{
@@ -201,24 +202,13 @@ func (wsm *impl) StatusByMessageID(id uint64) (status *Status, err error) {
 		URL(apiXMLURI)
 	defer singletonTransport.RequestPut(req)
 	singletonTransport.Do(req)
-	// Ожидание ответа
-	if err = req.Done().Error(); err != nil {
-		err = fmt.Errorf("Execute request error: %s", err)
+	// Результат
+	rsp = new(websmsTypes.Status)
+	if err = wsm.SendResponse(req, rsp); err != nil {
 		return
 	}
-	// Анализ результата
-	if req.Response().StatusCode() < 200 || req.Response().StatusCode() > 299 {
-		err = fmt.Errorf("Request %s %q error, HTTP code %d (%s)", req.Response().Response().Request.Method, req.Response().Response().Request.URL.String(), req.Response().StatusCode(), req.Response().Status())
-		return
-	}
-	s = new(websmsTypes.Status)
-	err = req.Response().Content().UnmarshalXML(s)
 	// Конвертирование статуса во вменяемый формат
-	status, err = wsm.statusConvertor(s)
-	// DEBUG
-	//req.Response().Content().BackToBegin()
-	//log.Debug(req.Response().Content().String())
-	// DEBUG
+	status, err = wsm.statusConvertor(rsp)
 
 	return
 }
