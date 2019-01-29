@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"testing"
-	"time"
 
 	"gopkg.in/webnice/web.v1/status"
 )
@@ -115,8 +114,8 @@ func TestStatusConvertor(t *testing.T) {
 	if st.GroupID != 9876543210 {
 		t.Fatalf("statusConvertor error")
 	}
-	if st.StateAt.Truncate(time.Second).UTC().String() != "2019-01-01 07:11:12 +0000 UTC" {
-		t.Log(st.StateAt.Truncate(time.Second).UTC().String())
+	if st.StateAt.Format("2006.01.02 15:04:05") != "2019.01.01 10:11:12" {
+		t.Log(st.StateAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("statusConvertor error")
 	}
 	if len(st.State) != 4 {
@@ -229,17 +228,20 @@ func TestStatusByMessageID(t *testing.T) {
 	if st.ID != 536346304 {
 		t.Fatalf("Request status of message by ID error")
 	}
-	if st.StateAt.Truncate(time.Second).UTC().String() != "2019-01-29 02:31:08 +0000 UTC" {
-		t.Log(st.StateAt.Truncate(time.Second).UTC().String())
+	if st.StateAt.Format("2006.01.02 15:04:05") != "2019.01.29 05:31:08" {
+		t.Log(st.StateAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
-	if st.RegistrationAt.Truncate(time.Second).Unix() != 1548662209 {
+	if st.RegistrationAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:56:49" {
+		t.Log(st.RegistrationAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
-	if st.SendAt.Truncate(time.Second).Unix() != 1548662160 {
+	if st.SendAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:56:00" {
+		t.Log(st.SendAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
-	if st.DeliveredAt.Truncate(time.Second).Unix() != 1548662252 {
+	if st.DeliveredAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:57:32" {
+		t.Log(st.DeliveredAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.MessageParts != 18 || st.MessageCost != 2.1531 {
