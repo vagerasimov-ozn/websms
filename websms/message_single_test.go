@@ -15,9 +15,7 @@ import (
 	"gopkg.in/webnice/web.v1/status"
 )
 
-type (
-	testSingleSrvHandler struct{ http.Handler }
-)
+type testSingleSrvHandler struct{ http.Handler }
 
 func (tsh *testSingleSrvHandler) ServeHTTP(wr http.ResponseWriter, rq *http.Request) {
 	var err error
@@ -140,7 +138,6 @@ func TestMessageAt(t *testing.T) {
 		t.Fatalf("error: %s", err)
 	}
 	if len(st.State) == 0 || st.State[0].ErrorString != shaSumm {
-		t.Fatalf(st.State[0].ErrorString)
 		t.Fatalf("error send single message")
 	}
 }
@@ -177,7 +174,6 @@ func TestMessageToAnyAt(t *testing.T) {
 		t.Fatalf("error: %s", err)
 	}
 	if len(st.State) == 0 || st.State[0].ErrorString != shaSumm {
-		t.Fatalf(st.State[0].ErrorString)
 		t.Fatalf("error send single message")
 	}
 }

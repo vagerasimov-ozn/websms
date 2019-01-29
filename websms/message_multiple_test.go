@@ -16,9 +16,7 @@ import (
 	"gopkg.in/webnice/web.v1/status"
 )
 
-type (
-	testMultipleSrvHandler struct{ http.Handler }
-)
+type testMultipleSrvHandler struct{ http.Handler }
 
 func (tsh *testMultipleSrvHandler) ServeHTTP(wr http.ResponseWriter, rq *http.Request) {
 	var err error
@@ -87,15 +85,14 @@ func TestMessages(t *testing.T) {
 		Testing(true).
 		Extended(true)
 	msgs = []*MultiMessage{
-		&MultiMessage{ID: messageID1, To: toNumber1, Body: body1},
-		&MultiMessage{ID: messageID2, To: toNumber2, Body: body2},
+		{messageID1, toNumber1, body1},
+		{messageID2, toNumber2, body2},
 	}
 	st, err = obj.Messages(msgs, packetID)
 	if err != nil {
 		t.Fatalf("error: %s", err)
 	}
 	if len(st.State) == 0 || st.State[0].ErrorString != shaSumm {
-		t.Log(st.State[0].ErrorString)
 		t.Fatalf("error send multiple messages")
 	}
 }
@@ -130,8 +127,8 @@ func TestMessagesAt(t *testing.T) {
 		Testing(true).
 		Extended(true)
 	msgs = []*MultiMessage{
-		&MultiMessage{ID: messageID1, To: toNumber1, Body: body1},
-		&MultiMessage{ID: messageID2, To: toNumber2, Body: body2},
+		{messageID1, toNumber1, body1},
+		{messageID2, toNumber2, body2},
 	}
 	startAt = time.Date(2019, 02, 01, 0, 1, 2, 0, time.UTC)
 	st, err = obj.MessagesAt(msgs, packetID, startAt)
@@ -139,7 +136,6 @@ func TestMessagesAt(t *testing.T) {
 		t.Fatalf("error: %s", err)
 	}
 	if len(st.State) == 0 || st.State[0].ErrorString != shaSumm {
-		t.Log(st.State[0].ErrorString)
 		t.Fatalf("error send multiple messages")
 	}
 }
