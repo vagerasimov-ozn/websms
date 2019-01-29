@@ -1,10 +1,7 @@
 package websms
 
 //import "gopkg.in/webnice/debug.v1"
-import (
-	"gopkg.in/webnice/log.v2"
-	"time"
-)
+import "gopkg.in/webnice/log.v2"
 import (
 	"crypto/sha512"
 	"encoding/hex"
@@ -15,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 
 	"gopkg.in/webnice/web.v1/status"
 )
@@ -69,7 +67,7 @@ func TestSendRequestIncorrectInput(t *testing.T) {
 
 func TestSendRequestBadServer(t *testing.T) {
 	obj := New()
-	apiXMLURI = "http://localhost:65536/bad"
+	apiXMLURI = "http://localhost:65536/bad/port"
 	_, err := obj.Message(&Message{}, "")
 	if err == nil || !strings.Contains(err.Error(), "invalid port") {
 		t.Fatalf("SendRequest error")

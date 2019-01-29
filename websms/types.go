@@ -35,7 +35,7 @@ type Interface interface {
 	// Testing Set testing flag
 	Testing(t bool) Interface
 
-	// Extended Выполнение запроса отправки с получением расширенной информации статуса
+	// Extended Execution of the send request with receipt of extended status information
 	Extended(t bool) Interface
 
 	// Balance Request account balance

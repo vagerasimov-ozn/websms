@@ -41,6 +41,14 @@ func NewDispatchStatus(s string) (ret DispatchStatus) {
 		ret = StatusDelayed
 	case StatusRestricted.String():
 		ret = StatusRestricted
+	default:
+		ret = newDispatchStatusLowCiclomatic1(s)
+	}
+	return
+}
+
+func newDispatchStatusLowCiclomatic1(s string) (ret DispatchStatus) {
+	switch strings.TrimSpace(strings.ToLower(s)) {
 	case StatusUnroutable.String():
 		ret = StatusUnroutable
 	case StatusMessageIDNotFound.String():
@@ -48,6 +56,5 @@ func NewDispatchStatus(s string) (ret DispatchStatus) {
 	default:
 		ret = StatusUnknown
 	}
-
 	return
 }

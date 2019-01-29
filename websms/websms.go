@@ -4,6 +4,9 @@
 	http://websms.ru/content/doc/HTTPXMLsendmethod_v1.5.1.pdf?196
 	Версия 1.5.1
 
+	! Документация websms.ru не соответствует настоящим ответам сервера, поэтому !
+	! библиотека подстроена под реальные возвращаемые сервером форматы данных    !
+
 */
 
 package websms // import "gopkg.in/webnice/websms.v1/websms"
@@ -50,7 +53,7 @@ func DefaultPassword(password string) { defaultConfiguration.Password = password
 // Testing Set testing flag
 func (wsm *impl) Testing(t bool) Interface { wsm.test = t; return wsm }
 
-// Extended Выполнение запроса отправки с получением расширенной информации статуса
+// Extended Execution of the send request with receipt of extended status information
 func (wsm *impl) Extended(t bool) Interface { wsm.extd = t; return wsm }
 
 // From is an sender name, if not specified selects from service profile settings
