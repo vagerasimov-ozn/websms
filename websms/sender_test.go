@@ -115,7 +115,8 @@ func TestStatusConvertor(t *testing.T) {
 	if st.GroupID != 9876543210 {
 		t.Fatalf("statusConvertor error")
 	}
-	if st.StateAt.Truncate(time.Second).Unix() != 1546326672 {
+	if st.StateAt.Truncate(time.Second).UTC().String() != "2019-01-01 07:11:12 +0000 UTC" {
+		t.Log(st.StateAt.Truncate(time.Second).UTC().String())
 		t.Fatalf("statusConvertor error")
 	}
 	if len(st.State) != 4 {
@@ -228,7 +229,8 @@ func TestStatusByMessageID(t *testing.T) {
 	if st.ID != 536346304 {
 		t.Fatalf("Request status of message by ID error")
 	}
-	if st.StateAt.Truncate(time.Second).Unix() != 1548729068 {
+	if st.StateAt.Truncate(time.Second).UTC().String() != "2019-01-29 02:31:08 +0000 UTC" {
+		t.Log(st.StateAt.Truncate(time.Second).UTC().String())
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.RegistrationAt.Truncate(time.Second).Unix() != 1548662209 {
