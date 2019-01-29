@@ -115,7 +115,6 @@ func TestStatusConvertor(t *testing.T) {
 		t.Fatalf("statusConvertor error")
 	}
 	if st.StateAt.Format("2006.01.02 15:04:05") != "2019.01.01 10:11:12" {
-		t.Log(st.StateAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("statusConvertor error")
 	}
 	if len(st.State) != 4 {
@@ -229,19 +228,15 @@ func TestStatusByMessageID(t *testing.T) {
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.StateAt.Format("2006.01.02 15:04:05") != "2019.01.29 05:31:08" {
-		t.Log(st.StateAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.RegistrationAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:56:49" {
-		t.Log(st.RegistrationAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.SendAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:56:00" {
-		t.Log(st.SendAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.DeliveredAt.Format("2006.01.02 15:04:05") != "2019.01.28 10:57:32" {
-		t.Log(st.DeliveredAt.Format("2006.01.02 15:04:05"))
 		t.Fatalf("Request status of message by ID error")
 	}
 	if st.MessageParts != 18 || st.MessageCost != 2.1531 {
